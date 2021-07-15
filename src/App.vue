@@ -1,13 +1,12 @@
 <template>
   <div>
-    <post-form/>
-    <post-list :posts="posts"/>
+    <post-form @create="createPost" />
 
-    
+    <post-list :posts="posts" />
 
-  <!-- getting the data from data array 'post' -- > moved to components-->
+    <!-- getting the data from data array 'post' -- > moved to components-->
 
-  <!-- <div>
+    <!-- <div>
     <h2>With iteration of array</h2>
   </div>
 
@@ -22,20 +21,18 @@
 
         <div>Number of likes: <strong>{{ likes }} </strong> </div>
         <div>Number of dislikes: <strong>{{ dislikes }} </strong> </div> -->
-
-
   </div>
 </template>
 
 <script>
-
 import PostForm from "./components/PostForm.vue";
-import PostList from "@/components/PostList"
+import PostList from "@/components/PostList";
 
 export default {
-    components: {
-        PostList, PostForm
-    },
+  components: {
+    PostList,
+    PostForm,
+  },
   data() {
     return {
       posts: [
@@ -43,22 +40,18 @@ export default {
         { id: 2, title: "React", body: "Some article about React." },
         { id: 3, title: "Python", body: "Some article about Python." },
       ],
-
-      title: "",
-      body: "",
     };
   },
 
   methods: {
-    createPost() {
-      const newPost = {
-        id: Date.now(),
-        title: this.title,
-        body: this.body,
-      };
-      this.posts.push(newPost);
-      this.title = "";
-      this.body = "";
+    createPost(post, second, third) {
+
+        this.posts.push(post)
+      // tests for get other attributes - see child!
+      console.log(post);
+      console.log(second);
+
+      console.log(third);
     },
 
     inputTitle(e) {

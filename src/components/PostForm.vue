@@ -10,10 +10,9 @@
         type="text"
         placeholder="Title"
       />
-      <!-- direct binding - see  '@input="body = $event.target.value"' -->
+      <!-- direct binding with V-Model - see difference - LEARN!  -->
       <input
-        v-bind:value="post.body"
-        @input="post.body = $event.target.value"
+        v-model="post.body"
         class="input"
         type="text"
         placeholder="Description"
@@ -32,7 +31,21 @@ export default {
       },
     };
   },
-};
+  methods: {
+    createPost() {
+      this.post.id = Date.now();
+
+    //below will not work, because this is a child of app. using create will solve the issue
+    //   this.posts.push(newPost);
+
+        this.$emit('create', this.post, 'second param', '3 param')
+        this.post = {
+            title: "",
+            body: "",
+        }
+    }
+  }
+}
 </script>
 <style >
 form {
