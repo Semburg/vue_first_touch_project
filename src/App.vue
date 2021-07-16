@@ -3,7 +3,8 @@
     <post-form @create="createPost" />
 
     <post-list :posts="posts" />
-
+    
+  
     <!-- getting the data from data array 'post' -- > moved to components-->
 
     <!-- <div>

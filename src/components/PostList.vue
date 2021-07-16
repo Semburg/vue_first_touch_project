@@ -1,33 +1,28 @@
 <template>
   <div>
-    <div>
-      <h2>With iteration of array</h2>
-    </div>
+    <h3>User's list</h3>
 
-    <div class="post" v-for="post in posts">
-      <div><strong>Topic</strong> {{ post.title }}</div>
-      <div><strong>Description</strong> {{ post.body }}</div>
-    </div>
+    <post-item 
+    v-for="post in posts"
+    :post='post' 
+    />
   </div>
 </template>
 
 
 <script>
+import PostItem from "@/components/PostItem";
 export default {
-    props: {
-        posts:{
-            type: Array,
-            required: true,
-        }
-    }
+  components: { PostItem },
+  props: {
+    posts: {
+      type: Array,
+      required: true,
+    },
+  },
 };
 </script>
 
 
 <style>
-.post {
-  padding: 15px;
-  border: 2px solid teal;
-  margin-top: 14px;
-}
 </style>
