@@ -1,6 +1,10 @@
 <template>
   <div>
-    <my-dialog :show="true">
+    <h1>Post's Page</h1>
+    <my-button
+    @click="showDialog"
+    >Create Post</my-button>
+    <my-dialog v-model:show="dialogVisible">
       <post-form @create="createPost" />
     </my-dialog>
 
@@ -42,17 +46,20 @@ export default {
         { id: 2, title: "React", body: "Some article about React." },
         { id: 3, title: "Python", body: "Some article about Python." },
       ],
+      dialogVisible: false,
     };
   },
 
   methods: {
     createPost(post, second, third) {
       this.posts.push(post);
-      // tests for get other attributes - see child!
-      console.log(post);
-      console.log(second);
+      this.dialogVisible = false;
 
-      console.log(third);
+      // tests for get other attributes - see child!
+      // console.log(post);
+      // console.log(second);
+
+      // console.log(third);
     },
     removePost(post) {
       this.posts = this.posts.filter((p) => p.id !== post.id);
@@ -61,6 +68,10 @@ export default {
     inputTitle(e) {
       this.title = e.target.value;
     },
+
+    showDialog(){
+      this.dialogVisible = true;
+    }
 
     //  direct creation - see the input options
     // inputBody(e) {
