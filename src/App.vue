@@ -2,9 +2,8 @@
   <div>
     <post-form @create="createPost" />
 
-    <post-list :posts="posts" />
-    
-  
+    <post-list :posts="posts" @remove="removePost" />
+
     <!-- getting the data from data array 'post' -- > moved to components-->
 
     <!-- <div>
@@ -46,13 +45,15 @@ export default {
 
   methods: {
     createPost(post, second, third) {
-
-        this.posts.push(post)
+      this.posts.push(post);
       // tests for get other attributes - see child!
       console.log(post);
       console.log(second);
 
       console.log(third);
+    },
+    removePost(post) {
+      this.posts = this.posts.filter((p) => p.id !== post.id);
     },
 
     inputTitle(e) {
