@@ -2,9 +2,8 @@
   <div>
     <h1>Post's Page</h1>
 
-    <my-button @click="fetchPosts">Get posts from API</my-button>
-
-
+    <!-- tests API fetch by click
+    <my-button @click="fetchPosts">Get posts from API</my-button> -->
 
     <my-button @click="showDialog" style="matgin: 15px 0"
       >Create Post</my-button
@@ -13,7 +12,10 @@
       <post-form @create="createPost" />
     </my-dialog>
 
-    <post-list :posts="posts" @remove="removePost" />
+    <post-list :posts="posts" @remove="removePost" v-if="!isPostsLoading" />
+    <div v-else style="color: green;">
+      Loading Posts...
+    </div>
 
     <!-- getting the data from data array 'post' -- > moved to components-->
 
@@ -47,12 +49,17 @@ export default {
   },
   data() {
     return {
-      posts: [
+      posts: [],
+
+      dialogVisible: false,
+      isPostsLoading: false,
+
+      // below array from the beginning
+      posts2: [
         { id: 1, title: "JavaScript", body: "Some article about javascript." },
         { id: 2, title: "React", body: "Some article about React." },
         { id: 3, title: "Python", body: "Some article about Python." },
       ],
-      dialogVisible: false,
     };
   },
 
@@ -81,11 +88,17 @@ export default {
 
     async fetchPosts() {
       try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        this.isPostsLoading = true;
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/posts?_limit=10"
+        );
+        this.posts = response.data;
 
-        console.log(response)
+        console.log(response);
       } catch (e) {
-        alert("Error: ", e)
+        alert("Error: ", e);
+      } finally {
+        this.isPostsLoading = false;
       }
     },
 
@@ -101,6 +114,10 @@ export default {
     // addDislike() {
     //   this.dislikes += 1;
     // },
+  },
+
+  mounted() {
+    this.fetchPosts();
   },
 };
 </script>
