@@ -1,9 +1,14 @@
 <template>
   <div>
     <h1>Post's Page</h1>
-    <my-button
-    @click="showDialog"
-    >Create Post</my-button>
+
+    <my-button @click="fetchPosts">Get posts from API</my-button>
+
+
+
+    <my-button @click="showDialog" style="matgin: 15px 0"
+      >Create Post</my-button
+    >
     <my-dialog v-model:show="dialogVisible">
       <post-form @create="createPost" />
     </my-dialog>
@@ -33,6 +38,7 @@
 <script>
 import PostForm from "./components/PostForm.vue";
 import PostList from "@/components/PostList";
+import axios from "axios";
 
 export default {
   components: {
@@ -69,16 +75,26 @@ export default {
       this.title = e.target.value;
     },
 
-    showDialog(){
+    showDialog() {
       this.dialogVisible = true;
-    }
+    },
+
+    async fetchPosts() {
+      try {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+
+        console.log(response)
+      } catch (e) {
+        alert("Error: ", e)
+      }
+    },
 
     //  direct creation - see the input options
     // inputBody(e) {
     //     this.body = e.target.value
     // },
 
-    //  methods for first expo of reactive vue idea
+    //  ethods for first expo of reactive vue idea
     // addLike() {
     //   this.likes += 1;
     // },
