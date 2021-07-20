@@ -1,13 +1,23 @@
 <template>
   <div>
-    <h1>Post's Page</h1>
+    
 
     <!-- tests API fetch by click
     <my-button @click="fetchPosts">Get posts from API</my-button> -->
 
-    <my-button @click="showDialog" style="matgin: 15px 0"
-      >Create Post</my-button
-    >
+    <h1>Post's Page</h1>
+
+    <div class="app__btns">
+      <my-button @click="showDialog">Create Post</my-button>
+
+      <my-select v-model="selectedSort" :options="sortOptions">
+
+      </my-select>
+
+    </div>
+
+    
+
     <my-dialog v-model:show="dialogVisible">
       <post-form @create="createPost" />
     </my-dialog>
@@ -53,8 +63,15 @@ export default {
 
       dialogVisible: false,
       isPostsLoading: false,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'title', name: 'By title'},
+        {value: 'body', name: 'By content'},
 
-      // below array from the beginning
+      ],
+
+
+      // below array from the beginning, used before API
       posts2: [
         { id: 1, title: "JavaScript", body: "Some article about javascript." },
         { id: 2, title: "React", body: "Some article about React." },
@@ -102,6 +119,8 @@ export default {
       }
     },
 
+
+
     //  direct creation - see the input options
     // inputBody(e) {
     //     this.body = e.target.value
@@ -135,5 +154,11 @@ export default {
 
 h2 {
   margin-top: 20px;
+}
+
+.app__btns{
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
