@@ -42,14 +42,14 @@
 import PostForm from "./components/PostForm.vue";
 import PostList from "@/components/PostList";
 
-import MySelect from '@/components/UI/MySelect';
+import MySelect from "@/components/UI/MySelect";
 import axios from "axios";
 
 export default {
   components: {
     PostList,
     PostForm,
-    
+
     MySelect,
   },
   data() {
@@ -58,7 +58,7 @@ export default {
 
       dialogVisible: false,
       isPostsLoading: false,
-      selectedSort: '',
+      selectedSort: "",
       sortOptions: [
         { value: "title", name: "By title" },
         { value: "body", name: "By content" },
@@ -131,14 +131,17 @@ export default {
   },
 
   watch: {
-    selectedSort(newValue) {
-      console.log(newValue);
+    selectedSort: {
+      handler(newValue) {
+        console.log(newValue);
+      },
+    
     },
-    dialogVisible(newValue) {
-      console.log(newValue);
-    }
-  }
-}
+    dialogVisible(newV) {
+      console.log(newV);
+    },
+  },
+};
 </script>
 
 <style scoped>

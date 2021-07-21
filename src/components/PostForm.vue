@@ -56,7 +56,18 @@ export default {
       };
     },
   },
-};
+
+// watching for object example
+  watch:{
+    post: {
+      handler(newVal) {
+        console.log(newVal)
+      },
+      deep: true
+    }
+  }
+
+}
 </script>
 <style scoped>
 form {

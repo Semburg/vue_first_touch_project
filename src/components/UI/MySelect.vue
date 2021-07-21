@@ -19,16 +19,16 @@ export default {
     },
     options: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   methods: {
       changeOption(e){
           // console.log(e)
           this.$emit('update: modelValue', e.target.value);
       }
-  },
-};
+  }
+}
 </script>
 <style scoped>
 select{
