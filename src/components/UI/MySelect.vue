@@ -24,8 +24,8 @@ export default {
   },
   methods: {
       changeOption(e){
-          console.log(e)
-          this.$emit('update: modelValue', e.target.value )
+          // console.log(e)
+          this.$emit('update: modelValue', e.target.value);
       }
   },
 };

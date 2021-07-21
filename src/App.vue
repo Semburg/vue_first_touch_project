@@ -1,7 +1,5 @@
 <template>
   <div>
-    
-
     <!-- tests API fetch by click
     <my-button @click="fetchPosts">Get posts from API</my-button> -->
 
@@ -10,22 +8,15 @@
     <div class="app__btns">
       <my-button @click="showDialog">Create Post</my-button>
 
-      <my-select v-model="selectedSort" :options="sortOptions">
-
-      </my-select>
-
+      <my-select v-model="selectedSort" :options="sortOptions"></my-select>
     </div>
-
-    
 
     <my-dialog v-model:show="dialogVisible">
       <post-form @create="createPost" />
     </my-dialog>
 
     <post-list :posts="posts" @remove="removePost" v-if="!isPostsLoading" />
-    <div v-else style="color: green;">
-      Loading Posts...
-    </div>
+    <div v-else style="color: green">Loading Posts...</div>
 
     <!-- getting the data from data array 'post' -- > moved to components-->
 
@@ -50,12 +41,16 @@
 <script>
 import PostForm from "./components/PostForm.vue";
 import PostList from "@/components/PostList";
+
+import MySelect from '@/components/UI/MySelect';
 import axios from "axios";
 
 export default {
   components: {
     PostList,
     PostForm,
+    
+    MySelect,
   },
   data() {
     return {
@@ -65,11 +60,9 @@ export default {
       isPostsLoading: false,
       selectedSort: '',
       sortOptions: [
-        {value: 'title', name: 'By title'},
-        {value: 'body', name: 'By content'},
-
+        { value: "title", name: "By title" },
+        { value: "body", name: "By content" },
       ],
-
 
       // below array from the beginning, used before API
       posts2: [
@@ -81,7 +74,7 @@ export default {
   },
 
   methods: {
-    createPost(post, second, third) {
+    createPost(post) {
       this.posts.push(post);
       this.dialogVisible = false;
 
@@ -111,15 +104,13 @@ export default {
         );
         this.posts = response.data;
 
-        console.log(response);
+        //console.log(response);
       } catch (e) {
         alert("Error: ", e);
       } finally {
         this.isPostsLoading = false;
       }
     },
-
-
 
     //  direct creation - see the input options
     // inputBody(e) {
@@ -138,7 +129,16 @@ export default {
   mounted() {
     this.fetchPosts();
   },
-};
+
+  watch: {
+    selectedSort(newValue) {
+      console.log(newValue);
+    },
+    dialogVisible(newValue) {
+      console.log(newValue);
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -156,7 +156,7 @@ h2 {
   margin-top: 20px;
 }
 
-.app__btns{
+.app__btns {
   margin: 15px 0;
   display: flex;
   justify-content: space-between;
